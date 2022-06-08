@@ -3,9 +3,9 @@ import UsuarioService from "./../service/usuario.service.js"
 
 const router = express.Router()
 
-router.get("/usuarios", (req, res) => {
+router.get("/usuarios", async (req, res) => {
     try {
-        res.json(UsuarioService.buscarTodos())
+        res.json(await UsuarioService.buscarTodos())
     } catch (error) {
         res.status(500).json({ message: "Erro ao buscar usuários" })
         console.log("Erro ao buscar usuários: " + error.message)
@@ -27,7 +27,7 @@ router.put("/usuarios", (req, res) => {
         UsuarioService.atualizar(req.body)
         res.json({ message: "Usuário alterado com sucesso" })
     } catch (error) {
-        res.status(500).json( message: "Erro ao atualizar usuário" )
+        res.status(500).json({ message: "Erro ao atualizar usuário" })
         console.log("Erro ao atualizar usuário: " + error.message);
     }
 })

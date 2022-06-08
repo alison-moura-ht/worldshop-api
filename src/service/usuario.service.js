@@ -1,9 +1,10 @@
+import UsuarioModel from "../model/usuario.model.js";
 const usuariosCadastrados = [];
 
 export default class UsuarioService {
-  static buscarTodos() {
+  static async buscarTodos() {
     try {
-      return usuariosCadastrados;
+      return await UsuarioModel.find();
     } catch (error) {
       throw error;
     }
