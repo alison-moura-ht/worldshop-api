@@ -1,5 +1,4 @@
 import UsuarioModel from "../model/usuario.model.js";
-const usuariosCadastrados = [];
 
 export default class UsuarioService {
   static async buscarTodos() {
@@ -10,25 +9,25 @@ export default class UsuarioService {
     }
   }
 
-  static cadastrar(usuario) {
+  static async cadastrar(usuario) {
     try {
-      usuariosCadastrados.push(usuario);
+      return await UsuarioModel.create(usuario)
     } catch (error) {
       throw error;
     }
   }
 
-  static atualizar(usuario) {
+  static async atualizar(usuario) {
     try {
-      // Altera no DB
+      return await UsuarioModel.updateOne({ _id: usuario._id }, usuario)
     } catch (error) {
       throw error;
     }
   }
 
-  static remover(usuario) {
+  static async remover(id) {
     try {
-      // Remove no DB
+      return await UsuarioModel.deleteOne({ _id: id })
     } catch (error) {
       throw error;
     }
