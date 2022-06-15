@@ -16,7 +16,7 @@ router.post("/usuarios", async (req, res) => {
     try {
         res.json(await UsuarioService.cadastrar(req.body))
     } catch (error) {
-        res.status(500).json({ message: "Erro ao cadastrar usuário" })
+        res.status(500).json({ message: error.message })
         console.log("Erro ao cadastrar usuário: " + error.message)
     }
 })
