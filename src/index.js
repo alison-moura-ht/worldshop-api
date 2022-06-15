@@ -2,6 +2,7 @@ import express from "express";
 import mongoose from "mongoose";
 import UsuarioRouter from "./router/usuario.router.js";
 import ClienteRouter from "./router/cliente.router.js";
+import AuthRouter from "./router/auth.router.js";
 
 const PORT = 3000;
 
@@ -10,6 +11,7 @@ async function init() {
   api.use(express.json()); // "Liberar" requisição com body JSON
   api.use(UsuarioRouter);
   api.use(ClienteRouter);
+  api.use(AuthRouter);
 
   api.get("/", (req, res) => {
     res.send("API Wordshop");
