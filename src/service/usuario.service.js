@@ -1,14 +1,17 @@
-import jwt from "jsonwebtoken"
+import TokenUtil from "../utils/token.util.js";
 import UsuarioModel from "../model/usuario.model.js";
 import ErrosUtils from "../utils/erros.util.js";
 
 export default class UsuarioService {
   static async autenticar(email, senha) {
     try {
-      const resultado = await UsuarioModel.findOne({ email: email, senha: senha }, "_id nome");
-      const usuarioEncontrado = { _id: resultado._id, nome: resultado.nome }
-      usuarioEncontrado.token = jwt.sign(usuarioEncontrado, "nskjdfhksjdfkjsdhf")
-      return usuarioEncontrado
+      const resultado = await UsuarioModel.findOne(
+        { email: email, senha: senha },
+        "_id nome"
+      );
+      const usuarioEncontrado = { _id: resultado._id, nome: resultado.nome };
+      usuarioEncontrado.token = TokenUtil.gerarToken(usuarioEncontrado);
+      return usuarioEncontrado;
     } catch (error) {
       throw error;
     }
