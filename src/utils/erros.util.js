@@ -19,4 +19,8 @@ export default class ErrosUtils {
     }
     throw error;
   }
+
+  static enviarResponseError(error, res, msg) {
+    res.status(error.status || 500).json({ message: error.message || msg });
+  }
 }
