@@ -38,9 +38,10 @@
 
 ### Venda
 
-| Campo       | Tipo            | Obrigatório |
-| ----------- | -----------     | ----------- |
-| Cliente     | Cliente         | Sim         |
-| Produtos    | Array<Produto>  | Sim         |
-| Valor Total | Number          | Sim         |
-| Data        | Date            | Sim         |
+| Campo       | Tipo                         | Obrigatório |
+| ----------- | -----------                  | ----------- |
+| Cliente     | Cliente                      | Sim         |
+| Usuario     | Usuario                      | Sim         |
+| Itens       | Array<{Quantidade,Produto}>  | Sim         |
+| Valor Total | Number                       | Sim         |
+| Data        | Date                         | Sim         |
