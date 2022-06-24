@@ -1,26 +1,12 @@
-import express from "express";
-import mongoose from "mongoose";
-import UsuarioRouter from "./router/usuario.router.js";
-import ClienteRouter from "./router/cliente.router.js";
-import AuthRouter from "./router/auth.router.js";
+import api from "./server.js"
+import { connect } from "./db/index.js";
 
 const PORT = 3000;
 
 async function init() {
-  const api = express();
-  api.use(express.json()); // "Liberar" requisição com body JSON
-  api.use(UsuarioRouter);
-  api.use(ClienteRouter);
-  api.use(AuthRouter);
-
-  api.get("/", (req, res) => {
-    res.send("API Wordshop");
-  });
-
   // Conexão com o MongoDB Atlas
-  await mongoose.connect(
-    "mongodb+srv://mongodb:i7IqzxMR3XditDho@dev.tcgr9kc.mongodb.net/worldshop?retryWrites=true&w=majority"
-  );
+  await connect()
+  console.log("Banco de dados conectado com sucesso!")
 
   api.listen(PORT, () => {
     console.log(`API rodando na porta: ${PORT}`);
