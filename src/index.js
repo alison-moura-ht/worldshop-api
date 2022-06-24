@@ -1,7 +1,8 @@
+import "dotenv/config"
 import api from "./server.js"
 import { connect } from "./db/index.js";
 
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
 async function init() {
   // Conexão com o MongoDB Atlas
