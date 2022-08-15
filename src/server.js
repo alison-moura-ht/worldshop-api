@@ -1,4 +1,5 @@
 import express from "express";
+import cors from "cors";
 import UsuarioRouter from "./router/usuario.router.js";
 import ClienteRouter from "./router/cliente.router.js";
 import AuthRouter from "./router/auth.router.js";
@@ -7,6 +8,7 @@ import VendaRouter from "./router/venda.router.js";
 
 const api = express();
 api.use(express.json()); // "Liberar" requisição com body JSON
+api.use(cors()) // Política de CORS
 api.use(UsuarioRouter);
 api.use(ClienteRouter);
 api.use(AuthRouter);
