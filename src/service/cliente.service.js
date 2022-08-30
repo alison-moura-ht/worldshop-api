@@ -2,9 +2,17 @@ import ClienteModel from "../model/cliente.model.js";
 import ErrosUtils from "../utils/erros.util.js";
 
 export default class ClienteService {
-  static async buscarTodos() {
+  static async buscarTodos(props = "") {
     try {
-      return await ClienteModel.find();
+      return await ClienteModel.find({}, props);
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async buscarPorId(id, props = "") {
+    try {
+      return await ClienteModel.findOne({ _id: id }, props);
     } catch (error) {
       throw error;
     }
@@ -15,7 +23,7 @@ export default class ClienteService {
       await ClienteModel.validate(cliente);
       return await ClienteModel.create(cliente);
     } catch (error) {
-      ErrosUtils.tratarErro(error)
+      ErrosUtils.tratarErro(error);
     }
   }
 
@@ -34,5 +42,4 @@ export default class ClienteService {
       throw error;
     }
   }
-
 }

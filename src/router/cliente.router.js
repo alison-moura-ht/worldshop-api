@@ -7,7 +7,16 @@ const router = express.Router();
 
 router.get("/clientes", verificar, async (req, res) => {
   try {
-    res.json(await ClienteService.buscarTodos());
+    res.json(await ClienteService.buscarTodos("-cpf"));
+  } catch (error) {
+    ErrosUtils.enviarResponseError(error, res, "Erro ao buscar clientes");
+    console.log("Erro ao buscar clientes: " + error.message);
+  }
+});
+
+router.get("/clientes/:id", verificar, async (req, res) => {
+  try {
+    res.json(await ClienteService.buscarPorId(req.params.id));
   } catch (error) {
     ErrosUtils.enviarResponseError(error, res, "Erro ao buscar clientes");
     console.log("Erro ao buscar clientes: " + error.message);
