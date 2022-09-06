@@ -12,7 +12,7 @@ export default class ClienteService {
 
   static async buscarPorId(id, props = "") {
     try {
-      return await ClienteModel.findOne({ _id: id }, props);
+      return await ClienteModel.findById(id, props);
     } catch (error) {
       throw error;
     }

@@ -1,12 +1,18 @@
-
 import ProdutoModel from "../model/produto.model.js";
 import ErrosUtils from "../utils/erros.util.js";
 
-export default class UsuarioService {
-
+export default class ProdutoService {
   static async buscarTodos() {
     try {
       return await ProdutoModel.find();
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  static async buscarPorId(id) {
+    try {
+      return await ProdutoModel.findById(id);
     } catch (error) {
       throw error;
     }

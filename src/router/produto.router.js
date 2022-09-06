@@ -14,6 +14,15 @@ router.get("/produtos", verificar, async (req, res) => {
   }
 });
 
+router.get("/produtos/:id", verificar, async (req, res) => {
+  try {
+    res.json(await ProdutoService.buscarPorId(req.params.id));
+  } catch (error) {
+    ErrosUtils.enviarResponseError(error, res, "Erro ao buscar produto");
+    console.log("Erro ao buscar produto por ID: " + error.mensagem);
+  }
+});
+
 router.post("/produtos", verificar, async (req, res) => {
   try {
     res.json(await ProdutoService.cadastrar(req.body));
