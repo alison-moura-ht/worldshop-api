@@ -7,7 +7,6 @@ export default class TokenUtil {
   }
 
   static validarToken(token) {
-    console.log(token);
     if (!token) throw { message: "Token deve ser fornecido", status: 401 };
     try {
       jwt.verify(token, SECRET_KEY);
