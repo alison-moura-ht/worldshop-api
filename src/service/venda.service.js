@@ -14,6 +14,18 @@ export default class VendaService {
     }
   }
 
+  static async buscarPorId(id) {
+    try {
+      return await VendaModel.findById(id)
+        .populate("usuario", "-senha")
+        .populate("cliente", "-cpf -cep")
+        .populate("itens.produto")
+        .exec();
+    } catch (error) {
+      throw error;
+    }
+  }
+
   static async cadastrar(venda) {
     try {
       await VendaModel.validate(venda);

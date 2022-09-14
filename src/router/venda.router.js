@@ -14,6 +14,15 @@ router.get("/vendas", verificar, async (req, res) => {
   }
 });
 
+router.get("/vendas/:id", verificar, async (req, res) => {
+  try {
+    res.json(await VendaService.buscarPorId(req.params.id))
+  } catch (error) {
+    ErrosUtils.enviarResponseError(error, res, "Erro ao buscar venda");
+    console.log("Erro ao buscar venda por ID: " + error.message);
+  }
+});
+
 router.post("/vendas", verificar, async (req, res) => {
   try {
     res.json(await VendaService.cadastrar(req.body));
