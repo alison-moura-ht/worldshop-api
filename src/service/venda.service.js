@@ -45,7 +45,7 @@ export default class VendaService {
 
   static async remover(id) {
     try {
-      return await VendaModel.deleteOne({ _id: id });
+      return await VendaModel.updateOne({ _id: id }, { cancelado: true });
     } catch (error) {
       throw error;
     }

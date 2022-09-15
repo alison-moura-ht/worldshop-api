@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const schema = new mongoose.Schema({
   valorTotal: { type: Number, required: [true, "valor total obrigatório "] },
   data: { type: Date, required: [true, "data da venda obrigatória "] },
+  cancelado: { type: Boolean, default: false },
   cliente: {
     type: mongoose.Types.ObjectId,
     ref: "Cliente",
