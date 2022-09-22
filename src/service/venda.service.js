@@ -1,4 +1,5 @@
 import VendaModel from "../model/venda.model.js";
+import { formatarData } from "../utils/data.util.js";
 import ErrosUtils from "../utils/erros.util.js";
 
 export default class VendaService {
@@ -28,6 +29,7 @@ export default class VendaService {
 
   static async cadastrar(venda) {
     try {
+      venda.data = formatarData(venda.data);
       await VendaModel.validate(venda);
       return await VendaModel.create(venda);
     } catch (error) {
@@ -37,6 +39,7 @@ export default class VendaService {
 
   static async atualizar(venda) {
     try {
+      venda.data = formatarData(venda.data);
       return await VendaModel.updateOne({ _id: venda._id }, venda);
     } catch (error) {
       throw error;
