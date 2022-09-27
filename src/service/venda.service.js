@@ -9,6 +9,7 @@ export default class VendaService {
         .populate("cliente", "nome email")
         .populate("usuario", "nome email")
         .populate("itens.produto", "descricao valorUnitario")
+        .sort({ data: -1 })
         .exec();
     } catch (error) {
       throw error;
@@ -24,6 +25,25 @@ export default class VendaService {
         .exec();
     } catch (error) {
       throw error;
+    }
+  }
+
+  static async buscarPorIntervalo(dataInicial, dataFinal) {
+    try {
+      dataInicial = formatarData(dataInicial);
+      dataFinal = formatarData(dataFinal);
+      return await VendaModel.find({
+        data: {
+          $gte: dataInicial,
+          $lte: dataFinal,
+        },
+      })
+        .populate("cliente", "nome email")
+        .populate("usuario", "nome email")
+        .populate("itens.produto", "descricao valorUnitario")
+        .exec();
+    } catch (error) {
+      ErrosUtils.tratarErro(error);
     }
   }
 

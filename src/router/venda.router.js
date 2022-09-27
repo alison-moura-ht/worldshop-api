@@ -1,5 +1,6 @@
 import express from "express";
 import { verificar } from "../middleware/auth.middleware.js";
+import { formatarData } from "./../utils/data.util.js";
 import VendaService from "./../service/venda.service.js";
 import ErrosUtils from "./../utils/erros.util.js";
 
@@ -16,7 +17,7 @@ router.get("/vendas", verificar, async (req, res) => {
 
 router.get("/vendas/:id", verificar, async (req, res) => {
   try {
-    res.json(await VendaService.buscarPorId(req.params.id))
+    res.json(await VendaService.buscarPorId(req.params.id));
   } catch (error) {
     ErrosUtils.enviarResponseError(error, res, "Erro ao buscar venda");
     console.log("Erro ao buscar venda por ID: " + error.message);
@@ -29,6 +30,23 @@ router.post("/vendas", verificar, async (req, res) => {
   } catch (error) {
     ErrosUtils.enviarResponseError(error, res, "Erro ao cadastrar venda");
     console.log("Erro ao cadastrar venda: " + error.message);
+  }
+});
+
+router.post("/vendas/:dataInicial/:dataFinal", verificar, async (req, res) => {
+  try {
+    res.json(
+      await VendaService.buscarPorIntervalo(
+        req.params.dataInicial,
+        req.params.dataFinal
+      )
+    );
+  } catch (error) {
+    ErrosUtils.enviarResponseError(
+      error,
+      res,
+      "Erro ao buscar vendas por intervalo de datas"
+    );
   }
 });
 
