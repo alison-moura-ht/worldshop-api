@@ -3,6 +3,7 @@ import { verificar } from "../middleware/auth.middleware.js";
 import { formatarData } from "./../utils/data.util.js";
 import VendaService from "./../service/venda.service.js";
 import ErrosUtils from "./../utils/erros.util.js";
+import { gerarPDFVendas } from "../utils/pdf.util.js";
 
 const router = express.Router();
 
@@ -49,6 +50,26 @@ router.post("/vendas/:dataInicial/:dataFinal", verificar, async (req, res) => {
     );
   }
 });
+
+router.post(
+  "/vendas/pdf/:dataInicial/:dataFinal",
+  verificar,
+  async (req, res) => {
+    try {
+      const vendas = await VendaService.buscarPorIntervalo(
+        req.params.dataInicial,
+        req.params.dataFinal
+      );
+      gerarPDFVendas(vendas, req.params.dataInicial, req.params.dataFinal, res);
+    } catch (error) {
+      ErrosUtils.enviarResponseError(
+        error,
+        res,
+        "Erro ao buscar vendas por intervalo de datas"
+      );
+    }
+  }
+);
 
 router.put("/vendas", verificar, async (req, res) => {
   try {
